@@ -92,7 +92,7 @@ public class UserEntityTest {
     }
 
     @Test
-    public void wrongPasswordNoNumberOrSpecChar() {
+    public void wrongPasswordNoNumberOrSpecialChar() {
         String wrongPassword = "aAaAaA";
         UserEntity user = new UserEntity("Tibor1", wrongPassword, "tibor@gmail.com");
         Set<ConstraintViolation<UserEntity>> violations = validator.validate(user);
@@ -158,7 +158,7 @@ public class UserEntityTest {
     }
 
     @Test
-    public void rightRegistrationDate() {
+    public void rightRegistrationDatePast() {
         Calendar rightRegDate = Calendar.getInstance();
         rightRegDate.add(Calendar.SECOND, -2);
         UserEntity user = new UserEntity("Tibor1", "aaAA11", "tibor@gmail.com");
@@ -168,19 +168,39 @@ public class UserEntityTest {
     }
 
     @Test
-    public void wrongRegistrationDate() {
+    public void wrongRegistrationDateFuture() {
         Calendar wrongRegDate = Calendar.getInstance();
-        wrongRegDate.add(Calendar.YEAR, 2);
+        wrongRegDate.add(Calendar.SECOND, 2);
         UserEntity user = new UserEntity("Tibor1", "aaAA11", "tibor@gmail.com");
         user.setRegistrationDate(wrongRegDate.getTime());
         Set<ConstraintViolation<UserEntity>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
         Assert.assertEquals(wrongRegDate.getTime(), violations.iterator().next().getInvalidValue());
-        Assert.assertEquals("{PastDate.message}", violations.iterator().next().getMessageTemplate());
     }
 
     @Test
-    public void rightFirstFillLastFill() {
+    public void rightLastModifiedDatePast() {
+        Calendar rightRegDate = Calendar.getInstance();
+        rightRegDate.add(Calendar.SECOND, -2);
+        UserEntity user = new UserEntity("Tibor1", "aaAA11", "tibor@gmail.com");
+        user.setLastModifiedDate(rightRegDate.getTime());
+        Set<ConstraintViolation<UserEntity>> violations = validator.validate(user);
+        Assert.assertEquals(0, violations.size());
+    }
+
+    @Test
+    public void wrongLastModifiedDateFuture() {
+        Calendar wrongRegDate = Calendar.getInstance();
+        wrongRegDate.add(Calendar.SECOND, 2);
+        UserEntity user = new UserEntity("Tibor1", "aaAA11", "tibor@gmail.com");
+        user.setLastModifiedDate(wrongRegDate.getTime());
+        Set<ConstraintViolation<UserEntity>> violations = validator.validate(user);
+        Assert.assertEquals(1, violations.size());
+        Assert.assertEquals(wrongRegDate.getTime(), violations.iterator().next().getInvalidValue());
+    }
+
+    @Test
+    public void rightFirstNameLastNameBothNull() {
         UserEntity user = new UserEntity("Tibor1", "aaAA11", "tibor@gmail.com");
         user.setFirstName(null);
         user.setLastName(null);
@@ -189,7 +209,16 @@ public class UserEntityTest {
     }
 
     @Test
-    public void wrongFirstFillLastFill() {
+    public void rightFirstNameLastNameBothFill() {
+        UserEntity user = new UserEntity("Tibor1", "aaAA11", "tibor@gmail.com");
+        user.setFirstName("Tibor");
+        user.setLastName("Kun");
+        Set<ConstraintViolation<UserEntity>> violations = validator.validate(user);
+        Assert.assertEquals(0, violations.size());
+    }
+
+    @Test
+    public void wrongFirstNameLastNametFill() {
         UserEntity user = new UserEntity("Tibor1", "aaAA11", "tibor@gmail.com");
         user.setFirstName("Tibor");
         String wrongLastName = null;
@@ -200,17 +229,31 @@ public class UserEntityTest {
     }
 
     @Test
-    public void wrongRegDate() {
+    public void rightRegistrationDateAfterDateOfBirth() {
         UserEntity user = new UserEntity("Tibor1", "aaAA11", "tibor@gmail.com");
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.SECOND, -2);
+        calendar.add(Calendar.YEAR, -20);
         Date dateOfBirth = calendar.getTime();
         user.setDateOfBirth(dateOfBirth);
-        calendar.add(Calendar.SECOND, -20);
+        calendar.add(Calendar.YEAR, 19);
+        Date registrationDate = calendar.getTime();
+        user.setRegistrationDate(registrationDate);
+        Set<ConstraintViolation<UserEntity>> violations = validator.validate(user);
+        Assert.assertEquals(0, violations.size());
+    }
+
+    @Test
+    public void wrongRegistrationDateBeforeDateOfBirth() {
+        UserEntity user = new UserEntity("Tibor1", "aaAA11", "tibor@gmail.com");
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -20);
+        Date dateOfBirth = calendar.getTime();
+        user.setDateOfBirth(dateOfBirth);
+        calendar.add(Calendar.YEAR, -1);
         Date registrationDate = calendar.getTime();
         user.setRegistrationDate(registrationDate);
         Set<ConstraintViolation<UserEntity>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("{DateOfBirthEarlierThanRegistrationDate.message}", violations.iterator().next().getMessageTemplate());
+        Assert.assertEquals("{DateOfBirthBeforeRegistrationDate.message}", violations.iterator().next().getMessageTemplate());
     }
 }

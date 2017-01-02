@@ -4,20 +4,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import xyz.codingmentor.beanvalidation05.constraint.DateOfBirthEarlierThanRegistrationDate;
 import xyz.codingmentor.beanvalidation05.constraint.Email;
 import xyz.codingmentor.beanvalidation05.constraint.FirstFillLastFill;
 import xyz.codingmentor.beanvalidation05.constraint.Password;
-import xyz.codingmentor.beanvalidation05.constraint.PastDate;
+import xyz.codingmentor.beanvalidation05.constraint.DateOfBirthBeforeRegistrationDate;
 
 /**
  *
  * @author teiep
  */
 @FirstFillLastFill
-@DateOfBirthEarlierThanRegistrationDate
+@DateOfBirthBeforeRegistrationDate
 public class UserEntity {
 
     @NotNull
@@ -45,10 +45,10 @@ public class UserEntity {
     }
     private Sex sex;
 
-    @PastDate
+    @Past
     private Date registrationDate;
 
-    @PastDate
+    @Past
     private Date lastModifiedDate;
 
     private Date dateOfBirth;

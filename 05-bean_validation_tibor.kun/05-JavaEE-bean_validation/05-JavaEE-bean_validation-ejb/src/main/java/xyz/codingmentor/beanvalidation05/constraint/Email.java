@@ -33,11 +33,4 @@ public @interface Email {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
-    @Target({METHOD, FIELD, CONSTRUCTOR, PARAMETER})
-    @Retention(RUNTIME)
-    @interface List {
-
-        Email[] value();
-    }
 }

@@ -5,7 +5,6 @@ import java.util.UUID;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import xyz.codingmentor.beanvalidation05.constraint.GreaterThanZero;
 import xyz.codingmentor.beanvalidation05.constraint.ManufecturerColor;
 
 /**
@@ -34,8 +33,8 @@ public class DeviceEntity {
     private String type;
 
     @NotNull
-    @GreaterThanZero
-    private double price;
+    @DecimalMin(value = "1")
+    private Integer price;
 
     public enum Color {
         WHITE,
@@ -53,9 +52,8 @@ public class DeviceEntity {
     @DecimalMin(value = "0")
     private int count;
 
-    public DeviceEntity(Manufacturer manufacturer, String type, double price, Color color, int count) {
-        String randomUUID = UUID.randomUUID().toString();
-        this.id = randomUUID;
+    public DeviceEntity(Manufacturer manufacturer, String type, int price, Color color, int count) {
+        this.id = UUID.randomUUID().toString();
         this.manufacturer = manufacturer;
         this.type = type;
         this.price = price;
@@ -91,7 +89,7 @@ public class DeviceEntity {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -113,13 +111,13 @@ public class DeviceEntity {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.manufacturer);
-        hash = 97 * hash + Objects.hashCode(this.type);
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
-        hash = 97 * hash + Objects.hashCode(this.color);
-        hash = 97 * hash + this.count;
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + Objects.hashCode(this.manufacturer);
+        hash = 71 * hash + Objects.hashCode(this.type);
+        hash = 71 * hash + this.price;
+        hash = 71 * hash + Objects.hashCode(this.color);
+        hash = 71 * hash + this.count;
         return hash;
     }
 
@@ -135,7 +133,7 @@ public class DeviceEntity {
             return false;
         }
         final DeviceEntity other = (DeviceEntity) obj;
-        if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price)) {
+        if (this.price != other.price) {
             return false;
         }
         if (this.count != other.count) {

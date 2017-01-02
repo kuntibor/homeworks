@@ -6,19 +6,17 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author teiep
  */
-@NotNull
-@Constraint(validatedBy = GreaterThanZeroValidator.class)
-@Target({ElementType.FIELD})
+@Constraint(validatedBy = DateOfBirthBeforeRegistrationDateValidator.class)
+@Target({ElementType.TYPE})
 @Retention(RUNTIME)
-public @interface GreaterThanZero {
+public @interface DateOfBirthBeforeRegistrationDate {
 
-    String message() default "{GreaterThanZero.message}";
+    String message() default "{DateOfBirthBeforeRegistrationDate.message}";
 
     Class<?>[] groups() default {};
 

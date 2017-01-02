@@ -17,20 +17,15 @@ public class ManufecturerColorValidator implements ConstraintValidator<Manufectu
 
     @Override
     public void initialize(ManufecturerColor constraintAnnotation) {
-        //
+        //nothing to initialize
     }
 
     @Override
     public boolean isValid(DeviceEntity value, ConstraintValidatorContext context) {
-
-        if (null != value.getManufacturer()) {
-            if (value.getManufacturer() == APPLE && (value.getColor() == BLACK || value.getColor() == WHITE)) {
-                return true;
-            } else if (value.getManufacturer() == SAMSUNG && value.getColor() != GREEN) {
-                return true;
-            }
-            return false;
+        switch (value.getManufacturer()) {
+            case APPLE: return value.getColor() == BLACK || value.getColor() == WHITE;
+            case SAMSUNG: return value.getColor() != GREEN;
+            default: return true;
         }
-        return false;
     }
 }

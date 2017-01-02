@@ -18,10 +18,8 @@ import javax.validation.constraints.Size;
 @NotNull
 @Size(min = 6)
 @Pattern.List({
-    @Pattern(regexp = ".*[a-z].*")
-    ,
-    @Pattern(regexp = ".*[A-Z].*")
-    ,
+    @Pattern(regexp = ".*[a-z].*"),
+    @Pattern(regexp = ".*[A-Z].*"),
     @Pattern(regexp = "(.*[0-9]).*|(.*[\\=\\+\\<\\>\\.\\,].*)")
 })
 @Constraint(validatedBy = {})
