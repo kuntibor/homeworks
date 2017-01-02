@@ -17,15 +17,9 @@ public class FirstFillLastFillValidator implements ConstraintValidator<FirstFill
 
     @Override
     public boolean isValid(UserEntity value, ConstraintValidatorContext context) {
-        boolean bothFill = true;
-        boolean bothNull = true;
-        if (value.getFirstName() != null && value.getLastName() != null) {
-            return bothFill;
-        }
-        if (value.getFirstName() == null && value.getLastName() == null) {
-            return bothNull;
-        }
-        return false;
+        boolean bothFill = value.getFirstName() != null && value.getLastName() != null;
+        boolean bothNull = value.getFirstName() == null && value.getLastName() == null;
+        return bothNull || bothFill;
     }
 
 }
