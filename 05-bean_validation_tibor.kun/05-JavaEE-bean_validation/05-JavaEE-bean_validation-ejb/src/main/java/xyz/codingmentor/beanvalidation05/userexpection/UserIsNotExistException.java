@@ -4,9 +4,9 @@ package xyz.codingmentor.beanvalidation05.userexpection;
  *
  * @author teiep
  */
-public class UserIsNotExistExpection extends RuntimeException {
+public class UserIsNotExistException extends RuntimeException {
 
-    public UserIsNotExistExpection(String message) {
+    public UserIsNotExistException(String message) {
         super("UserName: " + message);
     }
 

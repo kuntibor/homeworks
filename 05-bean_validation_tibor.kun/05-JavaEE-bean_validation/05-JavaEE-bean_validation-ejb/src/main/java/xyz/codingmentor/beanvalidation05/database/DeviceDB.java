@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import xyz.codingmentor.beanvalidation05.beans.DeviceEntity;
-import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsAlreadyExistExpection;
-import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsNotExistExpection;
+import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsAlreadyExistException;
+import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsNotExistException;
 
 /**
  *
@@ -25,7 +25,7 @@ public enum DeviceDB {
             devices.put(device.getId(), device);
             return devices.get(device.getId());
         }
-        throw new DeviceIsAlreadyExistExpection(device.getId());
+        throw new DeviceIsAlreadyExistException(device.getId());
     }
 
     public DeviceEntity editDevice(DeviceEntity device) {
@@ -33,21 +33,21 @@ public enum DeviceDB {
             devices.put(device.getId(), device);
             return devices.get(device.getId());
         }
-        throw new DeviceIsNotExistExpection(device.getId());
+        throw new DeviceIsNotExistException(device.getId());
     }
 
     public DeviceEntity getDevice(String id) {
         if (devices.containsKey(id)) {
             return devices.get(id);
         }
-        throw new DeviceIsNotExistExpection(id);
+        throw new DeviceIsNotExistException(id);
     }
 
     public DeviceEntity deleteDevice(DeviceEntity device) {
         if (devices.containsKey(device.getId())) {
             return devices.remove(device.getId());
         }
-        throw new DeviceIsNotExistExpection(device.getId());
+        throw new DeviceIsNotExistException(device.getId());
     }
 
     public List<DeviceEntity> getAllDevice() {

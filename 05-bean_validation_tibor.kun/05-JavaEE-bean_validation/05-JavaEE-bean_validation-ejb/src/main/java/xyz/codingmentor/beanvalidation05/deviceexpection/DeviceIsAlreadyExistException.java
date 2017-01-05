@@ -4,9 +4,9 @@ package xyz.codingmentor.beanvalidation05.deviceexpection;
  *
  * @author teiep
  */
-public class DeviceIsAlreadyExistExpection extends RuntimeException {
+public class DeviceIsAlreadyExistException extends RuntimeException {
 
-    public DeviceIsAlreadyExistExpection(String message) {
+    public DeviceIsAlreadyExistException(String message) {
         super("ID: " + message);
     }
 

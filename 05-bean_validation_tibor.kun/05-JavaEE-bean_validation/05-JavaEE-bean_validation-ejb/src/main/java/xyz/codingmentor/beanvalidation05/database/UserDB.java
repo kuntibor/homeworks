@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import xyz.codingmentor.beanvalidation05.beans.UserEntity;
-import xyz.codingmentor.beanvalidation05.userexpection.UserIsAlreadyExistExpection;
-import xyz.codingmentor.beanvalidation05.userexpection.UserIsNotExistExpection;
+import xyz.codingmentor.beanvalidation05.userexpection.UserIsAlreadyExistException;
+import xyz.codingmentor.beanvalidation05.userexpection.UserIsNotExistException;
 
 /**
  *
@@ -25,14 +25,14 @@ public enum UserDB {
             users.put(user.getUsername(), user);
             return users.get(user.getUsername());
         }
-        throw new UserIsAlreadyExistExpection(user.getUsername());
+        throw new UserIsAlreadyExistException(user.getUsername());
     }
 
     public UserEntity getUser(String username) {
         if (users.containsKey(username)) {
             return users.get(username);
         }
-        throw new UserIsNotExistExpection(username);
+        throw new UserIsNotExistException(username);
     }
 
     public boolean authenticate(String username, String password) {
@@ -48,14 +48,14 @@ public enum UserDB {
             users.put(user.getUsername(), user);
             return users.get(user.getUsername());
         }
-        throw new UserIsNotExistExpection(user.getUsername());
+        throw new UserIsNotExistException(user.getUsername());
     }
 
     public UserEntity deleteUser(UserEntity user) {
         if (users.containsKey(user.getUsername())) {
             return users.remove(user.getUsername());
         }
-        throw new UserIsNotExistExpection(user.getUsername());
+        throw new UserIsNotExistException(user.getUsername());
     }
 
     public List<UserEntity> getAllUser() {

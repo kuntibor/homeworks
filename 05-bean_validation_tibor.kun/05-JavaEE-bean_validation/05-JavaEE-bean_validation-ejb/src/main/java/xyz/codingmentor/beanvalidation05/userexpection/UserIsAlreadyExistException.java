@@ -4,9 +4,9 @@ package xyz.codingmentor.beanvalidation05.userexpection;
  *
  * @author teiep
  */
-public class UserIsAlreadyExistExpection extends RuntimeException {
+public class UserIsAlreadyExistException extends RuntimeException {
 
-    public UserIsAlreadyExistExpection(String message) {
+    public UserIsAlreadyExistException(String message) {
         super("Username: " + message);
     }
 

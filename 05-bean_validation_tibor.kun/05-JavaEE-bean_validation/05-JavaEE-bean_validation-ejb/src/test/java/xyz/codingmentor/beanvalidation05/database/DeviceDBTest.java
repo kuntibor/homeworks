@@ -8,8 +8,8 @@ import org.junit.Test;
 import xyz.codingmentor.beanvalidation05.beans.DeviceEntity;
 import static xyz.codingmentor.beanvalidation05.beans.DeviceEntity.Manufacturer.APPLE;
 import static xyz.codingmentor.beanvalidation05.beans.DeviceEntity.Manufacturer.SAMSUNG;
-import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsAlreadyExistExpection;
-import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsNotExistExpection;
+import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsAlreadyExistException;
+import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsNotExistException;
 
 /**
  *
@@ -44,7 +44,7 @@ public class DeviceDBTest {
         DeviceDB.INSTANCE.deleteDevice(secondDevice);
     }
 
-    @Test(expected = DeviceIsAlreadyExistExpection.class)
+    @Test(expected = DeviceIsAlreadyExistException.class)
     public void wrongAddDeviceAlreadyExist() {
         String existingId = firstDevice.getId();
         DeviceEntity existindDevice = new DeviceEntity.Builder().id(existingId).build();
@@ -57,7 +57,7 @@ public class DeviceDBTest {
         Assert.assertEquals(firstDevice, DeviceDB.INSTANCE.getDevice(id));
     }
 
-    @Test(expected = DeviceIsNotExistExpection.class)
+    @Test(expected = DeviceIsNotExistException.class)
     public void wrongGetDevice() {
         String wrongId = "Not exist";
         DeviceDB.INSTANCE.getDevice(wrongId);

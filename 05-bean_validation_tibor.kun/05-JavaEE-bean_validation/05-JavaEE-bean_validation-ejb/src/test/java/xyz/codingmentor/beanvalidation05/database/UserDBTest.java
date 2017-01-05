@@ -6,8 +6,8 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import xyz.codingmentor.beanvalidation05.beans.UserEntity;
-import xyz.codingmentor.beanvalidation05.userexpection.UserIsAlreadyExistExpection;
-import xyz.codingmentor.beanvalidation05.userexpection.UserIsNotExistExpection;
+import xyz.codingmentor.beanvalidation05.userexpection.UserIsAlreadyExistException;
+import xyz.codingmentor.beanvalidation05.userexpection.UserIsNotExistException;
 
 /**
  *
@@ -40,7 +40,7 @@ public class UserDBTest {
         UserDB.INSTANCE.deleteUser(secondUser);
     }
 
-    @Test(expected = UserIsAlreadyExistExpection.class)
+    @Test(expected = UserIsAlreadyExistException.class)
     public void wrongAddUserAlreadyExist() {
         String existingUsername = firstUser.getUsername();
         UserEntity existingUser = new UserEntity.Builder().username(existingUsername).build();
@@ -53,7 +53,7 @@ public class UserDBTest {
         Assert.assertEquals(firstUser, UserDB.INSTANCE.getUser(username));
     }
 
-    @Test(expected = UserIsNotExistExpection.class)
+    @Test(expected = UserIsNotExistException.class)
     public void wrongGetUserNotExist() {
         String wrongUsername = "Not exist";
         UserDB.INSTANCE.getUser(wrongUsername);
