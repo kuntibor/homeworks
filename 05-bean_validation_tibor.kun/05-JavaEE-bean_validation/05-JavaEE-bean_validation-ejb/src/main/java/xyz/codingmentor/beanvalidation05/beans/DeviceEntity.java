@@ -52,6 +52,19 @@ public class DeviceEntity {
     @DecimalMin(value = "0")
     private int count;
 
+    public DeviceEntity() {
+        //to DeviceEntity.class
+    }
+
+    private DeviceEntity(Builder builder) {
+        this.id = builder.id;
+        this.manufacturer = builder.manufacturer;
+        this.type = builder.type;
+        this.price = builder.price;
+        this.color = builder.color;
+        this.count = builder.count;
+    }
+
     public DeviceEntity(Manufacturer manufacturer, String type, int price, Color color, int count) {
         this.id = UUID.randomUUID().toString();
         this.manufacturer = manufacturer;
@@ -152,6 +165,50 @@ public class DeviceEntity {
             return false;
         }
         return true;
+    }
+
+    public static class Builder {
+
+        private String id;
+        private Manufacturer manufacturer;
+        private String type;
+        private Integer price;
+        private Color color;
+        private int count;
+
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder manufacturer(Manufacturer manufacturer) {
+            this.manufacturer = manufacturer;
+            return this;
+        }
+
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder price(Integer price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder color(Color color) {
+            this.color = color;
+            return this;
+        }
+
+        public Builder count(int count) {
+            this.count = count;
+            return this;
+        }
+
+        public DeviceEntity build() {
+            return new DeviceEntity(this);
+        }
     }
 
 }
