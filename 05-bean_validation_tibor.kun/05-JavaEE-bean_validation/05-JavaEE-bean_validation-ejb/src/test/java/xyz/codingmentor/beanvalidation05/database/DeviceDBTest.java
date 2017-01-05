@@ -8,7 +8,6 @@ import org.junit.Test;
 import xyz.codingmentor.beanvalidation05.beans.DeviceEntity;
 import static xyz.codingmentor.beanvalidation05.beans.DeviceEntity.Manufacturer.APPLE;
 import static xyz.codingmentor.beanvalidation05.beans.DeviceEntity.Manufacturer.SAMSUNG;
-import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceDBIsEmptyExpection;
 import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsAlreadyExistExpection;
 import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsNotExistExpection;
 
@@ -87,11 +86,4 @@ public class DeviceDBTest {
         Assert.assertEquals(sampleList, DeviceDB.INSTANCE.getAllDevice());
     }
 
-    @Test(expected = DeviceDBIsEmptyExpection.class)
-    public void wrongGetAllDevices() {
-        DeviceDB.INSTANCE.deleteDevice(firstDevice);
-        List<DeviceEntity> sampleList = new ArrayList<>();
-        Assert.assertEquals(sampleList, DeviceDB.INSTANCE.getAllDevice());
-        DeviceDB.INSTANCE.addDevice(firstDevice);
-    }
 }

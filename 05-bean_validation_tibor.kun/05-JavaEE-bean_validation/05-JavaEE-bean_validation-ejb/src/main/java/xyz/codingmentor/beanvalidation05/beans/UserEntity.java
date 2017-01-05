@@ -1,5 +1,6 @@
 package xyz.codingmentor.beanvalidation05.beans;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -18,7 +19,7 @@ import xyz.codingmentor.beanvalidation05.constraint.DateOfBirthBeforeRegistratio
  */
 @FirstFillLastFill
 @DateOfBirthBeforeRegistrationDate
-public class UserEntity {
+public class UserEntity implements Serializable {
 
     @NotNull
     @Size(min = 6)

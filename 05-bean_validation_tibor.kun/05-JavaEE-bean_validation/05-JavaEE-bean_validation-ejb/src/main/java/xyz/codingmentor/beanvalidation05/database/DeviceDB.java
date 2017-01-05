@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import xyz.codingmentor.beanvalidation05.beans.DeviceEntity;
-import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceDBIsEmptyExpection;
 import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsAlreadyExistExpection;
 import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsNotExistExpection;
 
@@ -17,7 +16,7 @@ import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsNotExistExpecti
 public enum DeviceDB {
     INSTANCE;
 
-    private static final Map<String, DeviceEntity> devices = new HashMap<>();
+    private final Map<String, DeviceEntity> devices = new HashMap<>();
 
     public DeviceEntity addDevice(DeviceEntity device) {
         if (!devices.containsKey(device.getId())) {
@@ -26,7 +25,7 @@ public enum DeviceDB {
             devices.put(device.getId(), device);
             return devices.get(device.getId());
         }
-        throw new DeviceIsAlreadyExistExpection();
+        throw new DeviceIsAlreadyExistExpection(device.getId());
     }
 
     public DeviceEntity editDevice(DeviceEntity device) {
@@ -34,28 +33,25 @@ public enum DeviceDB {
             devices.put(device.getId(), device);
             return devices.get(device.getId());
         }
-        throw new DeviceIsNotExistExpection();
+        throw new DeviceIsNotExistExpection(device.getId());
     }
 
     public DeviceEntity getDevice(String id) {
         if (devices.containsKey(id)) {
             return devices.get(id);
         }
-        throw new DeviceIsNotExistExpection();
+        throw new DeviceIsNotExistExpection(id);
     }
 
     public DeviceEntity deleteDevice(DeviceEntity device) {
         if (devices.containsKey(device.getId())) {
             return devices.remove(device.getId());
         }
-        throw new DeviceIsNotExistExpection();
+        throw new DeviceIsNotExistExpection(device.getId());
     }
 
     public List<DeviceEntity> getAllDevice() {
-        if (!devices.isEmpty()) {
-            return new ArrayList<>(devices.values());
-        }
-        throw new DeviceDBIsEmptyExpection();
+        return new ArrayList<>(devices.values());
     }
 
 }

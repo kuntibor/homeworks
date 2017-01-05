@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import xyz.codingmentor.beanvalidation05.beans.UserEntity;
-import xyz.codingmentor.beanvalidation05.userexpection.UserDBIsEmptyExpection;
 import xyz.codingmentor.beanvalidation05.userexpection.UserIsAlreadyExistExpection;
 import xyz.codingmentor.beanvalidation05.userexpection.UserIsNotExistExpection;
 
@@ -17,7 +16,7 @@ import xyz.codingmentor.beanvalidation05.userexpection.UserIsNotExistExpection;
 public enum UserDB {
     INSTANCE;
 
-    private static final Map<String, UserEntity> users = new HashMap<>();
+    private final Map<String, UserEntity> users = new HashMap<>();
 
     public UserEntity addUser(UserEntity user) {
         if (!users.containsKey(user.getUsername())) {
@@ -26,14 +25,14 @@ public enum UserDB {
             users.put(user.getUsername(), user);
             return users.get(user.getUsername());
         }
-        throw new UserIsAlreadyExistExpection();
+        throw new UserIsAlreadyExistExpection(user.getUsername());
     }
 
     public UserEntity getUser(String username) {
         if (users.containsKey(username)) {
             return users.get(username);
         }
-        throw new UserIsNotExistExpection();
+        throw new UserIsNotExistExpection(username);
     }
 
     public boolean authenticate(String username, String password) {
@@ -49,21 +48,18 @@ public enum UserDB {
             users.put(user.getUsername(), user);
             return users.get(user.getUsername());
         }
-        throw new UserIsNotExistExpection();
+        throw new UserIsNotExistExpection(user.getUsername());
     }
 
     public UserEntity deleteUser(UserEntity user) {
         if (users.containsKey(user.getUsername())) {
             return users.remove(user.getUsername());
         }
-        throw new UserIsNotExistExpection();
+        throw new UserIsNotExistExpection(user.getUsername());
     }
 
     public List<UserEntity> getAllUser() {
-        if (!users.isEmpty()) {
-            return new ArrayList<>(users.values());
-        }
-        throw new UserDBIsEmptyExpection();
+        return new ArrayList<>(users.values());
     }
 
 }

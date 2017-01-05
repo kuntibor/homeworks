@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import xyz.codingmentor.beanvalidation05.beans.UserEntity;
-import xyz.codingmentor.beanvalidation05.userexpection.UserDBIsEmptyExpection;
 import xyz.codingmentor.beanvalidation05.userexpection.UserIsAlreadyExistExpection;
 import xyz.codingmentor.beanvalidation05.userexpection.UserIsNotExistExpection;
 
@@ -97,11 +96,4 @@ public class UserDBTest {
         Assert.assertEquals(sampleList, UserDB.INSTANCE.getAllUser());
     }
 
-    @Test(expected = UserDBIsEmptyExpection.class)
-    public void wrongGetAllUser() {
-        UserDB.INSTANCE.deleteUser(firstUser);
-        List<UserEntity> sampleList = new ArrayList<>();
-        Assert.assertEquals(sampleList, UserDB.INSTANCE.getAllUser());
-        UserDB.INSTANCE.addUser(firstUser);
-    }
 }

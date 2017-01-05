@@ -16,9 +16,9 @@ import xyz.codingmentor.beanvalidation05.database.UserDB;
  *
  * @author teiep
  */
-public class MainClass {
+public class Main {
 
-    private MainClass() {
+    private Main() {
         // private constructor to hide the implicit public one. 
     }
 
@@ -34,7 +34,7 @@ public class MainClass {
             deviceListFromJson = mapper.readValue(new File("devices.json"), deviceType);
             userListFromJson = mapper.readValue(new File("users.json"), userType);
         } catch (IOException ex) {
-            Logger.getLogger(MainClass.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         for (UserEntity user : userListFromJson) {

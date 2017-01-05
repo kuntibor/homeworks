@@ -1,5 +1,6 @@
 package xyz.codingmentor.beanvalidation05.beans;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 import javax.validation.constraints.DecimalMin;
@@ -12,7 +13,7 @@ import xyz.codingmentor.beanvalidation05.constraint.ManufecturerColor;
  * @author teiep
  */
 @ManufecturerColor
-public class DeviceEntity {
+public class DeviceEntity implements Serializable {
 
     @NotNull
     @Size(min = 36, max = 36)
