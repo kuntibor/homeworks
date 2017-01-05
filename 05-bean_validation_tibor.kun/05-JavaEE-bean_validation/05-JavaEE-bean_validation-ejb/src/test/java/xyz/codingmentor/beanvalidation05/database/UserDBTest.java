@@ -6,8 +6,8 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import xyz.codingmentor.beanvalidation05.beans.UserEntity;
-import xyz.codingmentor.beanvalidation05.userexpection.UserIsAlreadyExistException;
-import xyz.codingmentor.beanvalidation05.userexpection.UserIsNotExistException;
+import xyz.codingmentor.beanvalidation05.userexception.UserIsAlreadyExistException;
+import xyz.codingmentor.beanvalidation05.userexception.UserIsNotExistException;
 
 /**
  *

@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import xyz.codingmentor.beanvalidation05.beans.DeviceEntity;
-import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsAlreadyExistException;
-import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsNotExistException;
+import xyz.codingmentor.beanvalidation05.deviceexception.DeviceIsAlreadyExistException;
+import xyz.codingmentor.beanvalidation05.deviceexception.DeviceIsNotExistException;
 
 /**
  *

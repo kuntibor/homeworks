@@ -1,4 +1,4 @@
-package xyz.codingmentor.beanvalidation05.userexpection;
+package xyz.codingmentor.beanvalidation05.userexception;
 
 /**
  *

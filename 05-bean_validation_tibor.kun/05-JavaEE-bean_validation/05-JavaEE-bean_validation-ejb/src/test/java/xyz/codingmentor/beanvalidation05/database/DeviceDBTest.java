@@ -8,8 +8,8 @@ import org.junit.Test;
 import xyz.codingmentor.beanvalidation05.beans.DeviceEntity;
 import static xyz.codingmentor.beanvalidation05.beans.DeviceEntity.Manufacturer.APPLE;
 import static xyz.codingmentor.beanvalidation05.beans.DeviceEntity.Manufacturer.SAMSUNG;
-import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsAlreadyExistException;
-import xyz.codingmentor.beanvalidation05.deviceexpection.DeviceIsNotExistException;
+import xyz.codingmentor.beanvalidation05.deviceexception.DeviceIsAlreadyExistException;
+import xyz.codingmentor.beanvalidation05.deviceexception.DeviceIsNotExistException;
 
 /**
  *

@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import xyz.codingmentor.beanvalidation05.beans.UserEntity;
-import xyz.codingmentor.beanvalidation05.userexpection.UserIsAlreadyExistException;
-import xyz.codingmentor.beanvalidation05.userexpection.UserIsNotExistException;
+import xyz.codingmentor.beanvalidation05.userexception.UserIsAlreadyExistException;
+import xyz.codingmentor.beanvalidation05.userexception.UserIsNotExistException;
 
 /**
  *
