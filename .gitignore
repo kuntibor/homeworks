@@ -13,5 +13,3 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-/04-Library/nbproject/
-/04-Library_tibor.kun/nbproject/
