@@ -9,7 +9,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import xyz.codingmentor.beanvalidation05.annotation.Validate;
 import xyz.codingmentor.beanvalidation05.annotation.ValidatorQualifier;
-import xyz.codingmentor.beanvalidation05.validationexception.ValidationException;
+import xyz.codingmentor.beanvalidation05.exception.ValidationException;
 
 /**
  *

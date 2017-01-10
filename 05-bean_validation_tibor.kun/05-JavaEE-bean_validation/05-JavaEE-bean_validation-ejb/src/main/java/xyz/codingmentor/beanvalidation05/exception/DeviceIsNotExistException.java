@@ -1,4 +1,4 @@
-package xyz.codingmentor.beanvalidation05.deviceexception;
+package xyz.codingmentor.beanvalidation05.exception;
 
 /**
  *
