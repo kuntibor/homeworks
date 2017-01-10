@@ -8,21 +8,22 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import xyz.codingmentor.beanvalidation05.annotation.Validate;
 import xyz.codingmentor.beanvalidation05.constraint.Email;
 import xyz.codingmentor.beanvalidation05.constraint.FirstFillLastFill;
 import xyz.codingmentor.beanvalidation05.constraint.Password;
 import xyz.codingmentor.beanvalidation05.constraint.DateOfBirthBeforeRegistrationDate;
-
 /**
  *
  * @author teiep
  */
+@Validate
 @FirstFillLastFill
 @DateOfBirthBeforeRegistrationDate
 public class UserEntity implements Serializable {
 
     @NotNull
-    @Size(min = 6)
+    @Size(message = "Too short username",min = 6)
     private String username;
 
     @Password

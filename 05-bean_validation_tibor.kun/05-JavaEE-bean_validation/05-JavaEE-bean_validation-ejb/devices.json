@@ -4,68 +4,68 @@
         "type": "phone",
         "price": 100000.0,
         "color": "WHITE",
-        "count": 0
+        "count": 1
     }, {
         "id": "d3aef599-5d50-453d-a5bf-3782331d704e",
         "manufacturer": "HTC",
         "type": "phone",
         "price": 20000.0,
         "color": "RED",
-        "count": 0
+        "count": 2
     }, {
         "id": "0f794580-d29b-4fba-abbf-ec6cc7380a8d",
         "manufacturer": "SAMSUNG",
         "type": "tablet",
         "price": 100000.0,
         "color": "BLUE",
-        "count": 0
+        "count": 3
     }, {
         "id": "5f048300-9235-424e-bb82-ec62df14f6d0",
         "manufacturer": "SAMSUNG",
         "type": "smart watch",
         "price": 100000.0,
         "color": "RED",
-        "count": 0
+        "count": 4
     }, {
         "id": "a4fdfa28-a8d1-4996-8920-d49ab303fd14",
         "manufacturer": "ONEPLUS",
         "type": "phone",
         "price": 80000.0,
         "color": "GREEN",
-        "count": 0
+        "count": 5
     }, {
         "id": "d10694d4-b94a-4097-b464-c61a6f29a8b6",
         "manufacturer": "APPLE",
         "type": "tablet",
         "price": 200000.0,
         "color": "BLACK",
-        "count": 0
+        "count": 6
     }, {
         "id": "b4cd2eb3-b563-415c-a8d3-36db9e5fc200",
         "manufacturer": "SAMSUNG",
         "type": "micro",
         "price": 50000.0,
         "color": "BLACK",
-        "count": 0
+        "count": 7
     }, {
         "id": "31443d4e-a493-4bd5-afdd-c4bedaaa5796",
         "manufacturer": "APPLE",
         "type": "phone",
         "price": 100000.0,
         "color": "WHITE",
-        "count": 0
+        "count": 8
     }, {
         "id": "90ea7f12-e276-4882-ba24-e0fd64a24d0a",
         "manufacturer": "SAMSUNG",
         "type": "phone",
         "price": 100000.0,
         "color": "PURPLE",
-        "count": 0
+        "count": 9
     }, {
         "id": "b6178d01-dc58-4846-b5ee-33909799dd0c",
         "manufacturer": "ONEPLUS",
         "type": "phone",
         "price": 150000.0,
         "color": "PURPLE",
-        "count": 0
+        "count": 10
     }]

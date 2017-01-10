@@ -1,5 +1,5 @@
 [{
-        "username": "first",
+        "username": "firstUser",
         "password": "aA12.,",
         "firstName": null,
         "lastName": null,
@@ -12,7 +12,7 @@
         "dateOfBirth": null,
         "admin": false
     }, {
-        "username": "second",
+        "username": "secondUser",
         "password": "aA12.,",
         "firstName": null,
         "lastName": null,
@@ -25,7 +25,7 @@
         "dateOfBirth": null,
         "admin": false
     }, {
-        "username": "third",
+        "username": "thirdUser",
         "password": "aA12.,",
         "firstName": null,
         "lastName": null,
@@ -38,7 +38,7 @@
         "dateOfBirth": null,
         "admin": false
     }, {
-        "username": "fourth",
+        "username": "fourthUser",
         "password": "aA12.,",
         "firstName": null,
         "lastName": null,
@@ -51,7 +51,7 @@
         "dateOfBirth": null,
         "admin": false
     }, {
-        "username": "fifth",
+        "username": "fifthUser",
         "password": "aA12.,",
         "firstName": null,
         "lastName": null,
@@ -64,7 +64,7 @@
         "dateOfBirth": null,
         "admin": false
     }, {
-        "username": "sixth",
+        "username": "sixthUser",
         "password": "aA12.,",
         "firstName": null,
         "lastName": null,
@@ -77,7 +77,7 @@
         "dateOfBirth": null,
         "admin": false
     }, {
-        "username": "seventh",
+        "username": "seventhUser",
         "password": "aA12.,",
         "firstName": null,
         "lastName": null,
@@ -90,7 +90,7 @@
         "dateOfBirth": null,
         "admin": false
     }, {
-        "username": "eighth",
+        "username": "eighthUser",
         "password": "aA12.,",
         "firstName": null,
         "lastName": null,
@@ -103,7 +103,7 @@
         "dateOfBirth": null,
         "admin": false
     }, {
-        "username": "ninth",
+        "username": "ninthUser",
         "password": "aA12.,",
         "firstName": null,
         "lastName": null,
@@ -116,7 +116,7 @@
         "dateOfBirth": null,
         "admin": false
     }, {
-        "username": "tenth",
+        "username": "tenthUser",
         "password": "aA12.,",
         "firstName": null,
         "lastName": null,

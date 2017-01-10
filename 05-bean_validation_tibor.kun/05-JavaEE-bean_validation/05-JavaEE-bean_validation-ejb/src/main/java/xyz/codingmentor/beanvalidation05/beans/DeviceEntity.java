@@ -6,17 +6,18 @@ import java.util.UUID;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import xyz.codingmentor.beanvalidation05.annotation.Validate;
 import xyz.codingmentor.beanvalidation05.constraint.ManufecturerColor;
-
 /**
  *
  * @author teiep
  */
+@Validate
 @ManufecturerColor
 public class DeviceEntity implements Serializable {
 
     @NotNull
-    @Size(min = 36, max = 36)
+    @Size(message = "Wrong ID size",min = 36, max = 36)
     private String id;
 
     public enum Manufacturer {

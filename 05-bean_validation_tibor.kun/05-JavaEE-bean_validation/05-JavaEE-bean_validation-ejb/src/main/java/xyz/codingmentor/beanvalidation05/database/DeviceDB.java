@@ -13,6 +13,7 @@ import xyz.codingmentor.beanvalidation05.deviceexception.DeviceIsNotExistExcepti
  *
  * @author teiep
  */
+
 public enum DeviceDB {
     INSTANCE;
 
