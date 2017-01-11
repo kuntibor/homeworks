@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author teiep
+ * @author Tibor Kun
  */
 @NotNull
 @Size(min = 6)

@@ -2,12 +2,12 @@ package xyz.codingmentor.beanvalidation05.exception;
 
 /**
  *
- * @author teiep
+ * @author Tibor Kun
  */
 public class UserIsAlreadyExistException extends RuntimeException {
 
     public UserIsAlreadyExistException(String message) {
-        super("Username: " + message);
+        super("\n\tUsername: " + message);
     }
 
 }

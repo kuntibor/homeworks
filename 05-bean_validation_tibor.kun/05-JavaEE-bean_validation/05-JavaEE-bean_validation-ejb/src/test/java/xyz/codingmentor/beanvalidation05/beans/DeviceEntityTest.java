@@ -16,7 +16,7 @@ import static xyz.codingmentor.beanvalidation05.beans.DeviceEntity.Color.WHITE;
 
 /**
  *
- * @author teiep
+ * @author Tibor Kun
  */
 public class DeviceEntityTest {
 

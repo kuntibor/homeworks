@@ -15,12 +15,16 @@ import xyz.codingmentor.beanvalidation05.interceptor.BeanValidation;
 @BeanValidation
 public class UserDBService {
 
-  private static final Logger LOGGER = Logger.getLogger(UserDBService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UserDBService.class.getName());
+    private UserEntity returnedUser;
 
     @ExcludeClassInterceptors
     public UserEntity addUser(UserEntity user) {
-        LOGGER.log(Level.INFO, "\n\tAdded user: {0}", user.getUsername());
-        return UserDB.INSTANCE.addUser(user);
+        returnedUser = UserDB.INSTANCE.addUser(user);
+        if (null != returnedUser) {
+            LOGGER.log(Level.INFO, "\n\tAdded user: {0}", user.getUsername());
+        }
+        return returnedUser;
     }
 
     public UserEntity getUser(String username) {
@@ -32,13 +36,19 @@ public class UserDBService {
     }
 
     public UserEntity modifyUser(UserEntity user) {
-        LOGGER.log(Level.INFO, "\n\tMidified user: {0}", user.getUsername());
-        return UserDB.INSTANCE.modifyUser(user);
+        returnedUser = UserDB.INSTANCE.modifyUser(user);
+        if (null != returnedUser) {
+            LOGGER.log(Level.INFO, "\n\tModified user: {0}", user.getUsername());
+        }
+        return returnedUser;
     }
 
     public UserEntity deleteUser(UserEntity user) {
-        LOGGER.log(Level.INFO, "\n\tDeleted user: {0}", user.getUsername());
-        return UserDB.INSTANCE.deleteUser(user);
+        returnedUser = UserDB.INSTANCE.deleteUser(user);
+        if (null != returnedUser) {
+            LOGGER.log(Level.INFO, "\n\tDeleted user: {0}", user.getUsername());
+        }
+        return returnedUser;
     }
 
     public List<UserEntity> getAllUser() {

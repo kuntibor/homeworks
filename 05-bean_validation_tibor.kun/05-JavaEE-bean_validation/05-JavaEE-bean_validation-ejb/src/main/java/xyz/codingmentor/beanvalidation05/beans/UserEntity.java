@@ -13,9 +13,10 @@ import xyz.codingmentor.beanvalidation05.constraint.Email;
 import xyz.codingmentor.beanvalidation05.constraint.FirstFillLastFill;
 import xyz.codingmentor.beanvalidation05.constraint.Password;
 import xyz.codingmentor.beanvalidation05.constraint.DateOfBirthBeforeRegistrationDate;
+
 /**
  *
- * @author teiep
+ * @author Tibor Kun
  */
 @Validate
 @FirstFillLastFill
@@ -23,7 +24,7 @@ import xyz.codingmentor.beanvalidation05.constraint.DateOfBirthBeforeRegistratio
 public class UserEntity implements Serializable {
 
     @NotNull
-    @Size(message = "Too short username",min = 6)
+    @Size(message = "Too short username", min = 6)
     private String username;
 
     @Password

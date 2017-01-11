@@ -8,16 +8,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import xyz.codingmentor.beanvalidation05.annotation.Validate;
 import xyz.codingmentor.beanvalidation05.constraint.ManufecturerColor;
+
 /**
  *
- * @author teiep
+ * @author Tibor Kun
  */
 @Validate
 @ManufecturerColor
 public class DeviceEntity implements Serializable {
 
     @NotNull
-    @Size(message = "Wrong ID size",min = 36, max = 36)
+    @Size(message = "Invalid ID size", min = 36, max = 36)
     private String id;
 
     public enum Manufacturer {
@@ -36,7 +37,7 @@ public class DeviceEntity implements Serializable {
 
     @NotNull
     @DecimalMin(value = "1")
-    private Integer price;
+    private int price;
 
     public enum Color {
         WHITE,
@@ -51,7 +52,7 @@ public class DeviceEntity implements Serializable {
     private Color color;
 
     @NotNull
-    @DecimalMin(value = "0")
+    @DecimalMin(message = "Invalid count", value = "0")
     private int count;
 
     public DeviceEntity() {
@@ -100,7 +101,7 @@ public class DeviceEntity implements Serializable {
         this.type = type;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
@@ -132,7 +133,6 @@ public class DeviceEntity implements Serializable {
         hash = 71 * hash + Objects.hashCode(this.type);
         hash = 71 * hash + this.price;
         hash = 71 * hash + Objects.hashCode(this.color);
-        hash = 71 * hash + this.count;
         return hash;
     }
 
@@ -174,7 +174,7 @@ public class DeviceEntity implements Serializable {
         private String id;
         private Manufacturer manufacturer;
         private String type;
-        private Integer price;
+        private int price;
         private Color color;
         private int count;
 
@@ -193,7 +193,7 @@ public class DeviceEntity implements Serializable {
             return this;
         }
 
-        public Builder price(Integer price) {
+        public Builder price(int price) {
             this.price = price;
             return this;
         }

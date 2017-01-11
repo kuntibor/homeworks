@@ -16,16 +16,23 @@ import xyz.codingmentor.beanvalidation05.interceptor.BeanValidation;
 public class DeviceDBService {
 
     private static final Logger LOGGER = Logger.getLogger(DeviceDBService.class.getName());
+    private DeviceEntity returnedDevice;
 
     @ExcludeClassInterceptors
     public DeviceEntity addDevice(DeviceEntity device) {
-        LOGGER.log(Level.INFO, "\n\tAdded device: {0} {1} {2}", new Object[]{device.getCount(),device.getManufacturer(), device.getType()});
-        return DeviceDB.INSTANCE.addDevice(device);
+        returnedDevice = DeviceDB.INSTANCE.addDevice(device);
+        if (null != returnedDevice) {
+            LOGGER.log(Level.INFO, "\n\tAdded device: {0} {1}", new Object[]{device.getManufacturer(), device.getType()});
+        }
+        return returnedDevice;
     }
 
     public DeviceEntity editDevice(DeviceEntity device) {
-        LOGGER.log(Level.INFO, "\n\tEdited device: {0}", device.getType());
-        return DeviceDB.INSTANCE.editDevice(device);
+        returnedDevice = DeviceDB.INSTANCE.editDevice(device);
+        if (null != returnedDevice) {
+            LOGGER.log(Level.INFO, "\n\tEdited device: {0} {1}", new Object[]{device.getManufacturer(), device.getType()});
+        }
+        return returnedDevice;
     }
 
     public DeviceEntity getDevice(String id) {
@@ -33,8 +40,11 @@ public class DeviceDBService {
     }
 
     public DeviceEntity deleteDevice(DeviceEntity device) {
-         LOGGER.log(Level.INFO, "\n\tDeleted device: {0}", device.getType());
-        return DeviceDB.INSTANCE.deleteDevice(device);
+        returnedDevice = DeviceDB.INSTANCE.deleteDevice(device);
+        if (null != returnedDevice) {
+            LOGGER.log(Level.INFO, "\n\tDeleted device: {0} {1}", new Object[]{device.getManufacturer(), device.getType()});
+        }
+        return returnedDevice;
     }
 
     public List<DeviceEntity> getAllDevice() {

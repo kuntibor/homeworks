@@ -6,7 +6,7 @@ import xyz.codingmentor.beanvalidation05.beans.UserEntity;
 
 /**
  *
- * @author teiep
+ * @author Tibor Kun
  */
 public class DateOfBirthBeforeRegistrationDateValidator implements ConstraintValidator<DateOfBirthBeforeRegistrationDate, UserEntity> {
 

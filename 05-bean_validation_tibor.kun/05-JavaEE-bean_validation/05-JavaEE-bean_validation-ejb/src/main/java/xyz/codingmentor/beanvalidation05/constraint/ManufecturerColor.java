@@ -9,7 +9,7 @@ import javax.validation.Payload;
 
 /**
  *
- * @author teiep
+ * @author Tibor Kun
  */
 @Constraint(validatedBy = ManufecturerColorValidator.class)
 @Target({ElementType.TYPE})

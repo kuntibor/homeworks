@@ -42,7 +42,7 @@ public class ValidatorInterceptor {
     }
 
     public void validateBean(Object object) {
-        String errorMessages = "\nValidation error:";
+        String errorMessages = "";
         violations = validator.validate(object);
         if (!violations.isEmpty()) {
             for (ConstraintViolation<Object> cv : violations) {

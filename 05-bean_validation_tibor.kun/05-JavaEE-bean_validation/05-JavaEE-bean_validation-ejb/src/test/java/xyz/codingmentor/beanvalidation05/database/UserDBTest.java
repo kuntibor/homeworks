@@ -11,7 +11,7 @@ import xyz.codingmentor.beanvalidation05.exception.UserIsNotExistException;
 
 /**
  *
- * @author teiep
+ * @author Tibor Kun
  */
 public class UserDBTest {
 

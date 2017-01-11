@@ -4,9 +4,9 @@ package xyz.codingmentor.beanvalidation05.exception;
  *
  * @author Tibor Kun
  */
-public class DeviceIsAlreadyExistException extends RuntimeException {
+public class DeviceIsNotInCartException extends RuntimeException {
 
-    public DeviceIsAlreadyExistException(String message) {
+    public DeviceIsNotInCartException(String message) {
         super("\n\tID: " + message);
     }
 

@@ -4,9 +4,10 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.UUID;
+import org.jboss.logging.Logger;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 import xyz.codingmentor.beanvalidation05.beans.DeviceEntity;
@@ -18,7 +19,7 @@ import xyz.codingmentor.beanvalidation05.service.UserDBService;
 
 /**
  *
- * @author teiep
+ * @author Tibor Kun
  */
 public class Main {
 
@@ -43,14 +44,16 @@ public class Main {
         fillEntities();
         rightUserValidateTests();
         rightDeviceValidateTests();
-        wrongAddUserTest();
-        wrongAddDeviceTest();
         rightModifiedUserTest();
         rightEditedDeviceTest();
-        wrongModifiedUserTest();
-        wrongEditedDeviceTest();
         rightDeletedUserTest();
         rightDeletedDeviceTest();
+        wrongUsernameFillTest();
+        wrongAddUserTest();
+        wrongAddDeviceTest();
+        wrongModifiedUserTest();
+        wrongEditedDeviceTest();
+        wrongEditedDeviceCountTest();
         wrongDeletedUserTest();
         wrongDeletedDeviceTest();
         shutDown();
@@ -73,7 +76,7 @@ public class Main {
             deviceListFromJson = mapper.readValue(new File("devices.json"), deviceType);
             userListFromJson = mapper.readValue(new File("users.json"), userType);
         } catch (IOException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.error(ex);
         }
     }
 
@@ -87,49 +90,80 @@ public class Main {
     }
 
     public static void rightUserValidateTests() {
-        UserEntity rightModifiedUser = userDBService.getUser("firstUser");
+        UserEntity rightModifiedUser = userListFromJson.get(0);
         rightModifiedUser.setPassword("bbBB12.,");
         userDBService.modifyUser(rightModifiedUser);
-        UserEntity rightDeletedUser = userDBService.getUser("thirdUser");
+        UserEntity rightDeletedUser = userListFromJson.get(1);
         userDBService.deleteUser(rightDeletedUser);
     }
 
     public static void rightDeviceValidateTests() {
-        DeviceEntity rightEditedDevice = deviceListFromJson.get(3);
+        DeviceEntity rightEditedDevice = deviceListFromJson.get(0);
         rightEditedDevice.setColor(BLACK);
         deviceDBService.editDevice(rightEditedDevice);
-        DeviceEntity rightDeletedDevice = deviceListFromJson.get(4);
+        DeviceEntity rightDeletedDevice = deviceListFromJson.get(1);
         deviceDBService.deleteDevice(rightDeletedDevice);
+    }
+
+    public static void wrongUsernameFillTest() {
+        UserEntity user = userListFromJson.get(2);
+        user.setUsername("testUser");
+        user.setLastName("last name");
+        try {
+            userDBService.addUser(user);
+        } catch (Exception ex) {
+            LOGGER.error(ex);
+        }
     }
 
     public static void wrongAddUserTest() {
         try {
-            userDBService.addUser(new UserEntity.Builder().username("a").build());
+            userDBService.addUser(userListFromJson.get(8));
         } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex);
         }
         try {
-            userDBService.addUser(new UserEntity.Builder().username("firstUser").build());
+            userDBService.addUser(new UserEntity.Builder().username("a").build());
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.error(ex);
+        }
+        try {
+            Calendar birthDate = Calendar.getInstance();
+            birthDate.add(Calendar.YEAR, 2);
+            UserEntity user = userListFromJson.get(4);
+            user.setDateOfBirth(birthDate.getTime());
+            userDBService.addUser(user);
+        } catch (Exception ex) {
+            LOGGER.error(ex);
         }
     }
 
     public static void wrongAddDeviceTest() {
+        DeviceEntity device = deviceListFromJson.get(2);
         try {
-            deviceDBService.addDevice(new DeviceEntity.Builder().manufacturer(APPLE).color(BLUE).build());
+            deviceDBService.addDevice(device);
         } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex);
         }
         try {
-            deviceDBService.addDevice(new DeviceEntity.Builder().manufacturer(SAMSUNG).color(GREEN).build());
+            device.setManufacturer(APPLE);
+            device.setColor(BLUE);
+            deviceDBService.addDevice(device);
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.error(ex);
+        }
+        try {
+            device.setManufacturer(SAMSUNG);
+            device.setColor(GREEN);
+            deviceDBService.addDevice(device);
+            deviceDBService.addDevice(device);
+        } catch (Exception ex) {
+            LOGGER.error(ex);
         }
     }
 
     public static void rightModifiedUserTest() {
-        UserEntity modifiedUser = userDBService.getUser("secondUser");
+        UserEntity modifiedUser = userListFromJson.get(5);
         modifiedUser.setEmail("new@test.com");
         userDBService.modifyUser(modifiedUser);
     }
@@ -142,11 +176,11 @@ public class Main {
 
     public static void wrongModifiedUserTest() {
         try {
-            UserEntity wrongModifiedUser = userDBService.getUser("secondUser");
-            wrongModifiedUser.setPassword("2");
+            UserEntity wrongModifiedUser = userListFromJson.get(6);
+            wrongModifiedUser.setPassword("6");
             userDBService.modifyUser(wrongModifiedUser);
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.error(ex);
         }
     }
 
@@ -156,36 +190,53 @@ public class Main {
             wrongEditedDevice.setColor(GREEN);
             deviceDBService.editDevice(wrongEditedDevice);
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.error(ex);
+        }
+    }
+
+    public static void wrongEditedDeviceCountTest() {
+        try {
+            DeviceEntity wrongEditedDevice = deviceListFromJson.get(6);
+            wrongEditedDevice.setCount(-10);
+            deviceDBService.editDevice(wrongEditedDevice);
+        } catch (Exception ex) {
+            LOGGER.error(ex);
         }
     }
 
     public static void rightDeletedUserTest() {
-        UserEntity deletedUser = userDBService.getUser("tenthUser");
-        userDBService.deleteUser(deletedUser);
+        userDBService.deleteUser(userListFromJson.get(7));
     }
 
     public static void rightDeletedDeviceTest() {
-        DeviceEntity deletedDevice = deviceListFromJson.get(9);
-        deviceDBService.deleteDevice(deletedDevice);
+        deviceDBService.deleteDevice(deviceListFromJson.get(5));
     }
 
     public static void wrongDeletedUserTest() {
+        UserEntity user = new UserEntity.Builder()
+                .username("testUser")
+                .password("aA12.,")
+                .email("test@mail.com").build();
         try {
-            UserEntity wrongDeletedUser = userDBService.getUser("not existing user");
-            userDBService.deleteUser(wrongDeletedUser);
+            userDBService.deleteUser(user);
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.error(ex);
         }
     }
 
     public static void wrongDeletedDeviceTest() {
+        DeviceEntity device = new DeviceEntity.Builder()
+                .manufacturer(APPLE)
+                .type("phone")
+                .color(BLACK)
+                .price(100000)
+                .count(10)
+                .build();
+        device.setId(UUID.randomUUID().toString());
         try {
-            DeviceEntity wrongDeletedDevice = deviceListFromJson.get(4);
-            wrongDeletedDevice.setId("0");
-            deviceDBService.deleteDevice(wrongDeletedDevice);
+            deviceDBService.deleteDevice(device);
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.error(ex);
         }
     }
 

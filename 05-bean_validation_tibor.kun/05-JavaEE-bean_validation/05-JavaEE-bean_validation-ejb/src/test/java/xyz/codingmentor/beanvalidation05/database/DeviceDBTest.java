@@ -13,7 +13,7 @@ import xyz.codingmentor.beanvalidation05.exception.DeviceIsNotExistException;
 
 /**
  *
- * @author teiep
+ * @author Tibor Kun
  */
 public class DeviceDBTest {
 

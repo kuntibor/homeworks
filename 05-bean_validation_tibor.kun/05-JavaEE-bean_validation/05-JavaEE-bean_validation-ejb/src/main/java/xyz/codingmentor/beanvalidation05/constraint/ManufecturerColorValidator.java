@@ -11,7 +11,7 @@ import static xyz.codingmentor.beanvalidation05.beans.DeviceEntity.Manufacturer.
 
 /**
  *
- * @author teiep
+ * @author Tibor Kun
  */
 public class ManufecturerColorValidator implements ConstraintValidator<ManufecturerColor, DeviceEntity> {
 

@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author teiep
+ * @author Tibor Kun
  */
 public class UserEntityTest {
 
