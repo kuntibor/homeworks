@@ -4,15 +4,16 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.interceptor.ExcludeClassInterceptors;
+import javax.interceptor.Interceptors;
 import xyz.codingmentor.beanvalidation05.beans.UserEntity;
 import xyz.codingmentor.beanvalidation05.database.UserDB;
-import xyz.codingmentor.beanvalidation05.interceptor.BeanValidation;
+import xyz.codingmentor.beanvalidation05.interceptor.ValidatorInterceptor;
 
 /**
  *
  * @author Tibor Kun
  */
-@BeanValidation
+@Interceptors(ValidatorInterceptor.class)
 public class UserDBService {
 
     private static final Logger LOGGER = Logger.getLogger(UserDBService.class.getName());

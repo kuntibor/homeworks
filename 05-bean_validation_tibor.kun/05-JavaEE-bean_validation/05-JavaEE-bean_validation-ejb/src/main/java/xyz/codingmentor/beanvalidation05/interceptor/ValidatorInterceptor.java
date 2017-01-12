@@ -1,5 +1,7 @@
 package xyz.codingmentor.beanvalidation05.interceptor;
 
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
@@ -23,8 +25,6 @@ public class ValidatorInterceptor {
     @ValidatorQualifier
     private Validator validator;
 
-    private Set<ConstraintViolation<Object>> violations;
-
     @AroundInvoke
     public Object beanValidator(InvocationContext ic) throws Exception {
         validateParameters(ic.getParameters());
@@ -32,23 +32,20 @@ public class ValidatorInterceptor {
     }
 
     public void validateParameters(Object[] parameters) {
-        Validate validate;
-        for (Object parameter : parameters) {
-            validate = parameter.getClass().getAnnotation(Validate.class);
-            if (null != validate) {
-                validateBean(parameter);
-            }
-        }
+        Arrays.asList(parameters)
+                .stream()
+                .filter(p -> p.getClass().isAnnotationPresent(Validate.class))
+                .forEach(p -> validateBean(p));
     }
 
-    public void validateBean(Object object) {
-        String errorMessages = "";
-        violations = validator.validate(object);
-        if (!violations.isEmpty()) {
-            for (ConstraintViolation<Object> cv : violations) {
-                errorMessages += "\n\t" + cv.getMessage();
-            }
-            throw new ValidationException(errorMessages);
+    public void validateBean(Object o) {
+        Set<ConstraintViolation<Object>> violations = validator.validate(o);
+        Optional<String> errorMessage = violations
+                .stream()
+                .map(e -> "\n\tValidation error: " + e.getMessage())
+                .reduce(String::concat);
+        if (errorMessage.isPresent()) {
+            throw new ValidationException(errorMessage.get());
         }
     }
 

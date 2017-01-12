@@ -1,13 +1,11 @@
 package xyz.codingmentor.beanvalidation05.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import xyz.codingmentor.beanvalidation05.beans.DeviceEntity;
-import xyz.codingmentor.beanvalidation05.exception.DeviceIsAlreadyInCartException;
+import xyz.codingmentor.beanvalidation05.exception.NotEnoughQuantityException;
 import xyz.codingmentor.beanvalidation05.exception.DeviceIsNotInCartException;
 
 /**
@@ -17,27 +15,35 @@ import xyz.codingmentor.beanvalidation05.exception.DeviceIsNotInCartException;
 public class CartService {
 
     private static final Logger LOGGER = Logger.getLogger(CartService.class.getName());
-    private Map<DeviceEntity, Integer> cartList = new HashMap<>();
+    private final Map<DeviceEntity, Integer> shoppingCart = new HashMap<>();
+    private final DeviceDBService deviceDBService = new DeviceDBService();
     private int totalPrice = 0;
 
-    public DeviceEntity addDevice(DeviceEntity device, int count) {
-        if (!cartList.containsKey(device)) {
-            device.setCount(device.getCount() - count);
-            totalPrice += count * device.getPrice();
-            cartList.put(device, count);
+    public DeviceEntity addDevice(String id, int quantity) {
+        DeviceEntity device = deviceDBService.getDevice(id);
+        if (quantity <= device.getCount()) {
+            shoppingCart.put(device, quantity);
+            device.setCount(device.getCount() - quantity);
+            deviceDBService.editDevice(device);
+            totalPrice += quantity * device.getPrice();
             return device;
         }
-        throw new DeviceIsAlreadyInCartException(device.getId());
+        throw new NotEnoughQuantityException(device.getId());
     }
 
-    public DeviceEntity deleteDevice(DeviceEntity device, int count) {
-        if (cartList.containsKey(device)) {
-            device.setCount(device.getCount() + count);
-            totalPrice -= count * device.getPrice();
-            if (count < cartList.get(device)) {
-                cartList.put(device, cartList.get(device) - count);
+    public DeviceEntity deleteDevice(String id, int quantity) {
+        DeviceEntity device = deviceDBService.getDevice(id);
+        if (shoppingCart.containsKey(device)) {
+            if (quantity < shoppingCart.get(device)) {
+                totalPrice -= quantity * device.getPrice();
+                device.setCount(device.getCount() + quantity);
+                deviceDBService.editDevice(device);
+                shoppingCart.put(device, shoppingCart.get(device) - quantity);
             } else {
-                cartList.remove(device, count);
+                totalPrice -= shoppingCart.get(device) * device.getPrice();
+                device.setCount(device.getCount() + shoppingCart.get(device));
+                deviceDBService.editDevice(device);
+                shoppingCart.remove(device, quantity);
             }
             return device;
         }
@@ -45,29 +51,19 @@ public class CartService {
     }
 
     public void clearCart() {
-        List<DeviceEntity> deviceList = getCartList();
-        if (null != deviceList) {
-            for (DeviceEntity device : deviceList) {
-                deleteDevice(device, cartList.get(device));
-            }
-        }
-    }
-
-    public List<DeviceEntity> getCartList() {
-        ArrayList<DeviceEntity> returnedList = null;
-        if (!cartList.isEmpty()) {
-            returnedList = new ArrayList<>();
-            for (Map.Entry<DeviceEntity, Integer> entry : cartList.entrySet()) {
-                returnedList.add(entry.getKey());
-            }
-        }
-        return returnedList;
+        shoppingCart.entrySet().forEach((entry) -> {
+            DeviceEntity device = deviceDBService.getDevice(entry.getKey().getId());
+            device.setCount(device.getCount() + entry.getValue());
+            deviceDBService.editDevice(device);
+        });
+        shoppingCart.clear();
+        totalPrice = 0;
     }
 
     public boolean purchase() {
-        if (!cartList.isEmpty()) {
+        if (!shoppingCart.isEmpty()) {
             logPurchase();
-            cartList.clear();
+            shoppingCart.clear();
             totalPrice = 0;
             return true;
         }
@@ -75,15 +71,21 @@ public class CartService {
     }
 
     public void logPurchase() {
-        String purchaseMessages = "\n\tPurchase: ";
-        for (Map.Entry<DeviceEntity, Integer> entry : cartList.entrySet()) {
-            purchaseMessages += "\n\t" + entry.getValue() + " piece " + entry.getKey().getManufacturer() + " " + entry.getKey().getType();
-        }
-        LOGGER.log(Level.INFO, purchaseMessages);
+        String purchaseMessage = "\n\tPurchase: ";
+        purchaseMessage = shoppingCart
+                .entrySet()
+                .stream()
+                .map((entry) -> "\n\t" + entry.getValue() + " piece " + entry.getKey().getManufacturer() + " " + entry.getKey().getType())
+                .reduce(purchaseMessage, String::concat);
+        LOGGER.log(Level.INFO, purchaseMessage);
     }
 
     public int getTotalPrice() {
         return totalPrice;
+    }
+
+    public Map<DeviceEntity, Integer> getShoppingCart() {
+        return shoppingCart;
     }
 
 }
