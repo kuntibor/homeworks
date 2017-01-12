@@ -31,7 +31,7 @@ public class UserRestService {
     /**
      * http://localhost:8080/08-JavaEE-rest-web-1.0-SNAPSHOT/rest/users
      *
-     * @return
+     * @return with an ArrayList
      */
     @GET
     public List<UserEntity> getAllUser() {
@@ -44,7 +44,7 @@ public class UserRestService {
      * Codingmentor 1"}
      *
      * @param user
-     * @return
+     * @return with a UserEntity
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -55,10 +55,10 @@ public class UserRestService {
 
     /**
      * http://localhost:8080/08-JavaEE-rest-web-1.0-SNAPSHOT/rest/users/{id} ID
-     * for example: 11cd8c8f-9ecb-47fd-b4d4-ec8b21136c3c Use an existing ID
+     * for example: 11cd8c8f-9ecb-47fd-b4d4-ec8b21136c3c Use an existing.
      *
      * @param id
-     * @return
+     * @return with a UserEntity
      */
     @GET
     @Path("/{id}")
@@ -88,7 +88,7 @@ public class UserRestService {
      * an existing ID
      *
      * @param id
-     * @return
+     * @return with a UserEntity
      */
     @DELETE
     @Path("/{id}")
