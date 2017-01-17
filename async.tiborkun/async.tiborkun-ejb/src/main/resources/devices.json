@@ -1,0 +1,41 @@
+[{
+        "type": "Apple phone",
+        "price": 100000.0,
+        "count": 1
+    }, {
+        "type": "HTC phone",
+        "price": 20000.0,
+        "count": 2
+    }, {
+        "type": "SAMSUNG tablet",
+        "price": 100000.0,
+        "count": 3
+    }, {
+        "type": "SAMSUNG smart watch",
+        "price": 100000.0,
+        "count": 4
+    }, {
+        "type": "Apple phone",
+        "price": 80000.0,
+        "count": 5
+    }, {
+        "type": "SAMSUNG tablet",
+        "price": 200000.0,
+        "count": 6
+    }, {
+        "type": "SAMSUNG tablet",
+        "price": 50000.0,
+        "count": 7
+    }, {
+        "type": "HTC phone",
+        "price": 100000.0,
+        "count": 8
+    }, {
+        "type": "MOTOROLA phone",
+        "price": 100000.0,
+        "count": 9
+    }, {
+        "type": "BLACKBARRY phone",
+        "price": 150000.0,
+        "count": 10
+    }]
