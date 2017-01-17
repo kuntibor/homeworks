@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.Future;
 import javax.ejb.AsyncResult;
 import javax.ejb.Asynchronous;
@@ -19,8 +20,6 @@ import xyz.codingmentor.tiborkun.async.entities.DeviceEntity;
  *
  * @author Tibor Kun
  */
-
-
 @Singleton
 public class DevicesSingleton {
 
@@ -32,6 +31,7 @@ public class DevicesSingleton {
 
     public DeviceEntity addDevice(DeviceEntity device) {
         if (!devices.containsKey(device.getId())) {
+            device.setId(UUID.randomUUID().toString());
             devices.put(device.getId(), device);
             return device;
         }
@@ -39,7 +39,7 @@ public class DevicesSingleton {
     }
 
     public Map<String, DeviceEntity> getDevices() {
-        LOGGER.info("\n\tGet all dvice:");
+        LOGGER.info("\n\tGet all dvice");
         return devices;
     }
 
@@ -49,16 +49,12 @@ public class DevicesSingleton {
         try {
             deviceListFromJson = mapper.readValue(new File(getClass().getClassLoader().getResource("devices.json").getFile()), deviceType);
         } catch (IOException ex) {
-             LOGGER.error(ex);
+            LOGGER.error(ex);
         }
         for (DeviceEntity device : deviceListFromJson) {
             LOGGER.info("\n\tAdd new device:" + device.getType());
             addDevice(device);
-        }
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException ex) {
-            LOGGER.error(ex);
+            waiting();
         }
         LOGGER.info("\n\tLoading complete");
     }
@@ -70,15 +66,20 @@ public class DevicesSingleton {
         for (Map.Entry<String, DeviceEntity> entry : devices.entrySet()) {
             if (entry.getValue().getType().contains(match)) {
                 matchedDevices.add(entry.getValue());
-            }
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException ex) {
-                LOGGER.error(ex);
+                LOGGER.info("\n\tMatched device: " + entry.getValue().getType());
+                waiting();
             }
         }
         LOGGER.info("\n\tSearching complete");
         return new AsyncResult<>(matchedDevices);
+    }
+
+    public void waiting() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            LOGGER.error(ex);
+        }
     }
 
 }

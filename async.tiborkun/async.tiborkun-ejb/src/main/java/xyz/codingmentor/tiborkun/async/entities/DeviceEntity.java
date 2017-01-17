@@ -11,14 +11,14 @@ public class DeviceEntity {
 
     private String type;
     private String id;
-    private String count;
+    private int count;
     private int price;
 
     public DeviceEntity() {
         //to DeviceEntity.class
     }
 
-    public DeviceEntity(String type, String count, int price) {
+    public DeviceEntity(String type, int count, int price) {
         this.type = type;
         this.id = UUID.randomUUID().toString();
         this.count = count;
@@ -41,11 +41,11 @@ public class DeviceEntity {
         this.id = id;
     }
 
-    public String getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 

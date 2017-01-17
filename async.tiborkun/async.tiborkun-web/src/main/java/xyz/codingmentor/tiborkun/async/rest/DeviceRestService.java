@@ -30,6 +30,7 @@ public class DeviceRestService {
     /**
      * http://localhost:8080/async.tiborkun-web-1.0-SNAPSHOT/async/devices
      * visszaadja az összes eszközt
+     *
      * @return json az össszes eszközről
      */
     @GET
@@ -40,18 +41,21 @@ public class DeviceRestService {
 
     /**
      * http://localhost:8080/async.tiborkun-web-1.0-SNAPSHOT/async/devices/load
-     * betölti a eszközt json fájlból.
+     * betölti a eszközöket egy json fájlból. Aszinkron, így míg fut,
+     * kezdeményezhető más folyamat is a UserRestService-en keresztül.
      */
     @POST
     @Path("/load")
     @Asynchronous
-    public void loadDevices(){
+    public void loadDevices() {
         devicesSingleton.loadDevicesFromJson();
     }
 
     /**
      * http://localhost:8080/async.tiborkun-web-1.0-SNAPSHOT/async/devices/{match}
-     * {match} helyére írt string alapján keres az eszközök között
+     * {match} helyére írt string alapján keres az eszközök között Aszinkron,
+     * így míg fut, kezdeményezhető más folyamat is a UserRestService-en
+     * keresztül.
      *
      * @param match
      * @return egy json a match-re illeszkedő eszközökről
@@ -67,7 +71,7 @@ public class DeviceRestService {
         } catch (InterruptedException | ExecutionException ex) {
             Logger.getLogger(DeviceRestService.class.getName()).log(Level.SEVERE, null, ex);
         }
-           return Response.ok(devices, MediaType.APPLICATION_JSON).build();
-        }
+        return Response.ok(devices, MediaType.APPLICATION_JSON).build();
+    }
 
 }

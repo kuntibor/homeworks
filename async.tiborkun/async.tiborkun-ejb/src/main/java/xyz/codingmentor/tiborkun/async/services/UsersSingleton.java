@@ -37,7 +37,7 @@ public class UsersSingleton {
     }
 
     public Map<String, UserEntity> getUsers() {
-        LOGGER.info("\n\tGet all user:");
+        LOGGER.info("\n\tGet all user");
         return users;
     }
 
@@ -52,11 +52,7 @@ public class UsersSingleton {
         for (UserEntity user : userListFromJson) {
             LOGGER.info("\n\tAdd new user:" + user.getUsername());
             addUser(user);
-        }
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException ex) {
-            LOGGER.error(ex);
+            waiting();
         }
         LOGGER.info("\n\tLoading complete");
     }
@@ -68,15 +64,20 @@ public class UsersSingleton {
         for (Map.Entry<String, UserEntity> entry : users.entrySet()) {
             if (entry.getValue().getUsername().contains(match)) {
                 matchedUsers.add(entry.getValue());
-            }
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException ex) {
-                LOGGER.error(ex);
+                LOGGER.info("\n\tMatched user: " + entry.getValue().getUsername());
+                waiting();
             }
         }
         LOGGER.info("\n\tSearching complete");
         return new AsyncResult<>(matchedUsers);
+    }
+
+    public void waiting() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            LOGGER.error(ex);
+        }
     }
 
 }

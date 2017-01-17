@@ -1,4 +1,5 @@
-[{
+[
+		{
         "type": "Apple phone",
         "price": 100000.0,
         "count": 1
@@ -38,4 +39,5 @@
         "type": "BLACKBARRY phone",
         "price": 150000.0,
         "count": 10
-    }]
+    }
+]

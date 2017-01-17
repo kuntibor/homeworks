@@ -28,8 +28,8 @@ public class UserRestService {
     private UsersSingleton usersSingleton;
 
     /**
-     * http://localhost:8080/async.tiborkun-web-1.0-SNAPSHOT/async/users
-     * visszaadja az összes felhasználót
+     * http://localhost:8080/async.tiborkun-web/async/users visszaadja az összes
+     * felhasználót
      *
      * @return json az össszes felhasználóról
      */
@@ -40,8 +40,9 @@ public class UserRestService {
     }
 
     /**
-     * http://localhost:8080/async.tiborkun-web-1.0-SNAPSHOT/async/users/load
-     * betölti a felhasználókat egy json fájlból.
+     * http://localhost:8080/async.tiborkun-web/async/users/load betölti a
+     * felhasználókat egy json fájlból. Aszinkron, így míg fut, kezdeményezhető
+     * más folyamat is a DeviceRestService-en keresztül.
      *
      */
     @POST
@@ -52,11 +53,12 @@ public class UserRestService {
     }
 
     /**
-     * http://localhost:8080/async.tiborkun-web-1.0-SNAPSHOT/async/users/{match}
-     * {match} helyére írt string alapján keres a felhasználók
+     * http://localhost:8080/async.tiborkun-web/async/users/{match} {match}
+     * helyére írt string alapján keres a felhasználók Aszinkron, így míg fut,
+     * kezdeményezhető más folyamat is a DeviceRestService-en keresztül.
      *
      * @param match
-     * @return egy json a match-re illeszkedő felhasználókról
+     * @return json a találatokról
      */
     @GET
     @Path("/{match}")
@@ -71,5 +73,4 @@ public class UserRestService {
         }
         return Response.ok(users, MediaType.APPLICATION_JSON).build();
     }
-
 }
