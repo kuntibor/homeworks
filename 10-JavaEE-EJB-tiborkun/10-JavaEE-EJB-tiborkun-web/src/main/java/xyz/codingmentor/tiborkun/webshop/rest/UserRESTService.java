@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -18,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import xyz.codingmentor.tiborkun.webshop.entities.UserEntity;
 import xyz.codingmentor.tiborkun.webshop.exception.AuthenticationFailureException;
+import xyz.codingmentor.tiborkun.webshop.exceptions.UserIsNotExistException;
 import xyz.codingmentor.tiborkun.webshop.services.UserDBSingleton;
 
 /**
@@ -74,48 +76,40 @@ public class UserRESTService implements Serializable {
     }
 
     /**
-     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users/add csak
+     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users csak
      * adminnal bejelenktezve használható
      *
      * @param request
      * @param user
      * @return json a hozzáadott user-ről
-     * @throws IllegalAccessException
      */
     @POST
-    @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addNewUser(@Context HttpServletRequest request, UserEntity user) throws IllegalAccessException {
-        HttpSession session = request.getSession();
-        UserEntity actualUser = (UserEntity) session.getAttribute(UserRESTService.USER_KEY);
-        if (actualUser != null && actualUser.isAdmin()) {
-            usersSingleton.addUser(user);
-            return Response.ok(user, MediaType.APPLICATION_JSON).build();
-        }
-        throw new IllegalAccessException();
+    public Response addNewUser(@Context HttpServletRequest request, UserEntity user) {
+        checkCredentials(request);
+        usersSingleton.addUser(user);
+        return Response.ok(user, MediaType.APPLICATION_JSON).build();
     }
 
     /**
-     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users/delete csak
+     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users csak
      * adminnal bejelenktezve használható
      *
      * @param request
      * @param user
      * @return json a törölt user-ről
-     * @throws IllegalAccessException
+     * @throws UserIsNotExistException
      */
-    @POST
-    @Path("/delete")
+    @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response deleteUser(@Context HttpServletRequest request, UserEntity user) throws IllegalAccessException {
-        HttpSession session = request.getSession();
+    public Response deleteUser(@Context HttpServletRequest request, UserEntity user) {
+        checkCredentials(request);
         UserEntity deletedUser = usersSingleton.getUser(user.getUsername());
-        UserEntity actualUser = (UserEntity) session.getAttribute(UserRESTService.USER_KEY);
-        if (null != deletedUser && null != actualUser && actualUser.isAdmin()) {
+        if (null != deletedUser) {
             usersSingleton.deleteUser(deletedUser);
             return Response.ok(deletedUser, MediaType.APPLICATION_JSON).build();
         }
-        throw new IllegalAccessException();
+        throw new UserIsNotExistException(user.getUsername());
     }
 
     /**
@@ -140,6 +134,14 @@ public class UserRESTService implements Serializable {
     public Response getUserByUsername(@PathParam("username") String username) {
         LOGGER.log(Level.INFO, "Get user by username: {0}", username);
         return Response.ok(usersSingleton.getUser(username), MediaType.APPLICATION_JSON).build();
+    }
+
+    private static void checkCredentials(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        UserEntity actualUser = (UserEntity) session.getAttribute(UserRESTService.USER_KEY);
+        if (null == actualUser || !actualUser.isAdmin()) {
+            throw new IllegalStateException("Not logged in as admin");
+        }
     }
 
 }

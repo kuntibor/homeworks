@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -29,7 +30,7 @@ public class CartRESTService implements Serializable {
     private CartService cartService;
 
     /**
-     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/cart/add csak
+     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/cart csak
      * bejelenktezve használható
      *
      * @param request
@@ -37,7 +38,6 @@ public class CartRESTService implements Serializable {
      * @return json a kosárhoz adott device-ról
      */
     @POST
-    @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addToCart(@Context HttpServletRequest request, DeviceEntity device) {
         checkCredentials(request);
@@ -45,15 +45,14 @@ public class CartRESTService implements Serializable {
     }
 
     /**
-     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/cart/delete csak
+     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/cart csak
      * bejelenktezve használható
      *
      * @param request
      * @param device
      * @return json a kosárból törölt device-ról
      */
-    @POST
-    @Path("/delete")
+    @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteFromCart(@Context HttpServletRequest request, DeviceEntity device) {
         checkCredentials(request);

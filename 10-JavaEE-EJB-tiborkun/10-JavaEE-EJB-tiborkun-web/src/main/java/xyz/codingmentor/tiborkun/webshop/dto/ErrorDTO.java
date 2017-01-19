@@ -8,6 +8,10 @@ public class ErrorDTO {
 
     private String errorMessage;
 
+    public ErrorDTO() {
+        //nothing to initialize
+    }
+
     public ErrorDTO(String errorMessage) {
         this.errorMessage = errorMessage;
     }

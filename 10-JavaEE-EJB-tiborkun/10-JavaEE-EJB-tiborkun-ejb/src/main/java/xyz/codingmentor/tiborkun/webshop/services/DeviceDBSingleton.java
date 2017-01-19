@@ -63,6 +63,7 @@ public class DeviceDBSingleton implements Serializable {
         throw new DeviceIsNotExistException(device.getId());
     }
 
+    @ExcludeClassInterceptors
     public List<DeviceEntity> getAllDevice() {
         return new ArrayList<>(devices.values());
     }

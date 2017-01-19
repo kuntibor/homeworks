@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import xyz.codingmentor.tiborkun.webshop.entities.DeviceEntity;
 import xyz.codingmentor.tiborkun.webshop.entities.UserEntity;
+import xyz.codingmentor.tiborkun.webshop.exceptions.DeviceIsNotExistException;
 import xyz.codingmentor.tiborkun.webshop.services.DeviceDBSingleton;
 
 /**
@@ -32,48 +34,39 @@ public class DeviceRESTService {
     private static final Logger LOGGER = Logger.getLogger(UserRESTService.class.getName());
 
     /**
-     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/devices/add csak
+     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/devices csak
      * adminnal bejelenktezve használható
      *
      * @param request
      * @param device
      * @return json a hozzáadott device-ról
-     * @throws IllegalAccessException
      */
     @POST
-    @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addNewDevice(@Context HttpServletRequest request, DeviceEntity device) throws IllegalAccessException {
-        HttpSession session = request.getSession();
-        UserEntity actualUser = (UserEntity) session.getAttribute(UserRESTService.USER_KEY);
-        if (null != actualUser && actualUser.isAdmin()) {
-            devicesSingleton.addDevice(device);
-            return Response.ok(device, MediaType.APPLICATION_JSON).build();
-        }
-        throw new IllegalAccessException("Not logged in as admin");
+    public Response addNewDevice(@Context HttpServletRequest request, DeviceEntity device) {
+        checkCredentials(request);
+        devicesSingleton.addDevice(device);
+        return Response.ok(device, MediaType.APPLICATION_JSON).build();
     }
 
     /**
-     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/devices/delete csak
+     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/devices csak
      * adminnal bejelenktezve használható
      *
      * @param request
      * @param device
      * @return json a törölt device-ról
-     * @throws IllegalAccessException
      */
-    @POST
-    @Path("/delete")
+    @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response deleteDevice(@Context HttpServletRequest request, DeviceEntity device) throws IllegalAccessException {
-        HttpSession session = request.getSession();
+    public Response deleteDevice(@Context HttpServletRequest request, DeviceEntity device) {
+        checkCredentials(request);
         DeviceEntity deletedDevice = devicesSingleton.getDevice(device.getId());
-        UserEntity actualUser = (UserEntity) session.getAttribute(UserRESTService.USER_KEY);
-        if (null != deletedDevice && null != actualUser && actualUser.isAdmin()) {
+        if (null != deletedDevice) {
             devicesSingleton.deleteDevice(deletedDevice);
             return Response.ok(deletedDevice, MediaType.APPLICATION_JSON).build();
         }
-        throw new IllegalAccessException("Not logged in as admin");
+        throw new DeviceIsNotExistException(device.getId());
     }
 
     /**
@@ -98,6 +91,14 @@ public class DeviceRESTService {
     public Response getUserByUsername(@PathParam("id") String id) {
         LOGGER.log(Level.INFO, "Get device by id: {0}", id);
         return Response.ok(devicesSingleton.getDevice(id), MediaType.APPLICATION_JSON).build();
+    }
+
+    private static void checkCredentials(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        UserEntity actualUser = (UserEntity) session.getAttribute(UserRESTService.USER_KEY);
+        if (null == actualUser || !actualUser.isAdmin()) {
+            throw new IllegalStateException("Not logged in as admin");
+        }
     }
 
 }

@@ -14,19 +14,19 @@ http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users/{username}
 http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/devices/{id}
 GET kérések. Visszaadják az paraméterben megadott user-t és device-t.
 
-http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users/add
-http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/devices/add
+http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users
+http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/devices
 POST kérések. A json-ben megadott entitásokat feltölti a DB-kbe.
 
-http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users/delete
-http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/devices/delete
-POST kérések. A json-ben megadott entitásokat törli a DB-kbõl.
+http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users
+http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/devices
+DELETE kérések. A json-ben megadott entitásokat törli a DB-kbõl.
 
-http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/cart/add
+http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/cart
 POST kérés. A json-ben megadott divece-t hozzáadja a cart-hoz.
 
-http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/cart/delete
-POST kérés. A json-ben megadott divece-t hozzáadja a cart-hoz.
+http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/cart
+DELETE kérés. A json-ben megadott divece-t törli a cartból.
 
 http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/cart/buy 
 POST kérés. Megveszi a cart tartalmát.

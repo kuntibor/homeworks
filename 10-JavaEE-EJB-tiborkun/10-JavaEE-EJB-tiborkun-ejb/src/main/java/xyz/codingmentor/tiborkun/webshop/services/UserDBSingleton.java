@@ -71,6 +71,7 @@ public class UserDBSingleton implements Serializable {
         throw new UserIsNotExistException(user.getUsername());
     }
 
+    @ExcludeClassInterceptors
     public List<UserEntity> getAllUser() {
         return new ArrayList<>(users.values());
     }
