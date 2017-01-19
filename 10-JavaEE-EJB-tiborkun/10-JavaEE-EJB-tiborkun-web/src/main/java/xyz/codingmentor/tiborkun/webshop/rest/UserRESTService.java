@@ -69,15 +69,19 @@ public class UserRESTService implements Serializable {
     @Path("/logout")
     public Response logout(@Context HttpServletRequest request) {
         HttpSession session = request.getSession();
-        UserEntity user = (UserEntity) session.getAttribute(UserRESTService.USER_KEY);
-        LOGGER.log(Level.INFO, "Successful logout: {0}", user.getUsername());
+        UserEntity actualUser = (UserEntity) session.getAttribute(UserRESTService.USER_KEY);
+        if (null != actualUser) {
+            LOGGER.log(Level.INFO, "Successful logout: {0}", actualUser.getUsername());
+        } else {
+            LOGGER.info("Already logged out");
+        }
         request.getSession().invalidate();
-        return Response.ok(user, MediaType.APPLICATION_JSON).build();
+        return Response.ok(actualUser, MediaType.APPLICATION_JSON).build();
     }
 
     /**
-     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users csak
-     * adminnal bejelenktezve használható
+     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users csak adminnal
+     * bejelenktezve használható
      *
      * @param request
      * @param user
@@ -92,8 +96,8 @@ public class UserRESTService implements Serializable {
     }
 
     /**
-     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users csak
-     * adminnal bejelenktezve használható
+     * http://localhost:8080/10-JavaEE-EJB-tiborkun-web/rest/users csak adminnal
+     * bejelenktezve használható
      *
      * @param request
      * @param user
