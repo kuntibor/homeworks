@@ -13,3 +13,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+/10-JavaEE-EJB-tiborkun/10-JavaEE-EJB-tiborkun-ejb/nbproject/

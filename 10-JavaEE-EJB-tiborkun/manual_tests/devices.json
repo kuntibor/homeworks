@@ -1,0 +1,82 @@
+[
+  {
+    "id": "d8a64871-186c-458f-b90c-c9e3dab35bdb",
+    "manufacturer": "HTC",
+    "type": "phone",
+    "price": 20000,
+    "color": "RED",
+    "count": 10
+  },
+  {
+    "id": "ee912bf1-a1bc-4eed-9fd6-5b2052e81114",
+    "manufacturer": "APPLE",
+    "type": "phone",
+    "price": 100000,
+    "color": "WHITE",
+    "count": 10
+  },
+  {
+    "id": "eb534ff8-a184-49a6-8d60-9745ad69c74c",
+    "manufacturer": "ONEPLUS",
+    "type": "phone",
+    "price": 80000,
+    "color": "GREEN",
+    "count": 10
+  },
+  {
+    "id": "1bbe4acf-c7d8-40c8-89aa-d2cdd0eb02f4",
+    "manufacturer": "SAMSUNG",
+    "type": "tablet",
+    "price": 100000,
+    "color": "BLUE",
+    "count": 10
+  },
+  {
+    "id": "49ac0e84-dc6f-48bf-b72e-259975e93b7b",
+    "manufacturer": "ONEPLUS",
+    "type": "phone",
+    "price": 150000,
+    "color": "PURPLE",
+    "count": 10
+  },
+  {
+    "id": "cd0d6122-6240-4a20-9b01-2cf194f81fa2",
+    "manufacturer": "SAMSUNG",
+    "type": "smart watch",
+    "price": 100000,
+    "color": "RED",
+    "count": 10
+  },
+  {
+    "id": "5c8e5fb4-413a-45fa-958c-bc1a79ed8539",
+    "manufacturer": "SAMSUNG",
+    "type": "micro",
+    "price": 50000,
+    "color": "BLACK",
+    "count": 10
+  },
+  {
+    "id": "1c79fb45-19fe-4c76-a38d-fcad080fe6f0",
+    "manufacturer": "SAMSUNG",
+    "type": "phone",
+    "price": 100000,
+    "color": "PURPLE",
+    "count": 10
+  },
+  {
+    "id": "58ef39d5-cb01-4917-bc3e-39d223fcd31a",
+    "manufacturer": "HTC",
+    "type": "phone",
+    "price": 100000,
+    "color": "WHITE",
+    "count": 10
+  },
+  {
+    "id": "33129893-dfd4-47f8-b29e-e7b7577574db",
+    "manufacturer": "APPLE",
+    "type": "tablet",
+    "price": 200000,
+    "color": "BLACK",
+    "count": 10
+  }
+]
