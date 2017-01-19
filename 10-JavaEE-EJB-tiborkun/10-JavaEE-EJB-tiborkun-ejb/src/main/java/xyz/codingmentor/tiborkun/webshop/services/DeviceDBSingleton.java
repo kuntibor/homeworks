@@ -22,7 +22,7 @@ import xyz.codingmentor.tiborkun.webshop.interceptors.ValidatorInterceptor;
  */
 @Singleton
 @Interceptors(ValidatorInterceptor.class)
-public class DeviceDBSingleton implements Serializable{
+public class DeviceDBSingleton implements Serializable {
 
     private final Map<String, DeviceEntity> devices = new HashMap<>();
     private static final Logger LOGGER = Logger.getLogger(DeviceDBSingleton.class.getName());

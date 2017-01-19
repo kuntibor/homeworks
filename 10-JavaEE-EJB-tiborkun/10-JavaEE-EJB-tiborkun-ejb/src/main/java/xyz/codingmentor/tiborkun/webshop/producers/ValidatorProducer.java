@@ -12,7 +12,8 @@ import xyz.codingmentor.tiborkun.webshop.annotations.ValidatorQualifier;
  */
 public class ValidatorProducer {
 
-    @Produces @ValidatorQualifier
+    @Produces
+    @ValidatorQualifier
     public Validator producerLogger() {
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         return vf.getValidator();

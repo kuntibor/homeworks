@@ -7,7 +7,7 @@ package xyz.codingmentor.tiborkun.webshop.exception;
 public class AuthenticationFailureException extends RuntimeException {
 
     public AuthenticationFailureException(String message) {
-        super("Wrong username or password: "+message);
+        super("Wrong username or password: " + message);
     }
 
 }

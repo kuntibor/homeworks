@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import xyz.codingmentor.tiborkun.webshop.annotations.Validate;
 import xyz.codingmentor.tiborkun.webshop.constraints.ManufecturerColor;
+
 /**
  *
  * @author Tibor Kun
