@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "linkType": "YOUTUBE",
+        "title": "Star Wars trailer",
+        "url": "https://www.youtube.com/watch?v=9gvqpFbRKtQ"
+    },
+    {
+        "id": 2,
+        "linkType": "VIMEO",
+        "title": "Titanic trailer",
+        "url": "https://vimeo.com/20102441"
+    },
+    {
+        "id":3,
+        "linkType": "VIMEO",
+        "title": "Ace Ventura trailer",
+        "url": "https://vimeo.com/69135640"
+    }
+]

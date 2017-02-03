@@ -1,0 +1,1 @@
+curl --verbose --write-out "\n" --request POST --data @01-addNewMovie.json --header "Content-Type: application/json" --cookie-jar cart-cookies.txt --cookie cart-cookies.txt 'http://localhost:8080/12-jpa_on_web-tiborkun-web/rest/movies'

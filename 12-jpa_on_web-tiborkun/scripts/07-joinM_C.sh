@@ -1,0 +1,3 @@
+curl --verbose --write-out "\n" --request GET --cookie-jar cart-cookies.txt --cookie cart-cookies.txt 'http://localhost:8080/12-jpa_on_web-tiborkun-web/rest/join/movie/category/?categoryId=1&movieId=1'
+curl --verbose --write-out "\n" --request GET --cookie-jar cart-cookies.txt --cookie cart-cookies.txt 'http://localhost:8080/12-jpa_on_web-tiborkun-web/rest/join/movie/category/?categoryId=2&movieId=2'
+curl --verbose --write-out "\n" --request GET --cookie-jar cart-cookies.txt --cookie cart-cookies.txt 'http://localhost:8080/12-jpa_on_web-tiborkun-web/rest/join/movie/category/?categoryId=3&movieId=3'
