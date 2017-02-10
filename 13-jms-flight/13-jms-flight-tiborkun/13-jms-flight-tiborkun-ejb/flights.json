@@ -1,0 +1,22 @@
+[
+    {
+        "flightNumber": 1,
+        "departure": "Budapest",
+        "arrival": "London"
+    },
+    {
+        "flightNumber": 2,
+        "departure": "Budapest",
+        "arrival": "Barcelona"
+    },
+    {
+        "flightNumber": 3,
+        "departure": "London",
+        "arrival": "New York"
+    },
+    {
+        "flightNumber": 4,
+        "departure": "Berlin",
+        "arrival": "Amsterdam"
+    }
+]
